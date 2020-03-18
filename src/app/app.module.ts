@@ -4,6 +4,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion'; /* Importado manualme
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; /* Importado manualmente */
+import { environment } from 'src/environments/environment';
+import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
 
 @NgModule({
   declarations: [
@@ -13,7 +15,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; 
     BrowserModule,
     AppRoutingModule,
     AccordionModule.forRoot(), /* Importado manualmente */
-    BrowserAnimationsModule /* Importado manualmente */
+    BrowserAnimationsModule, /* Importado manualmente */
+    AngularFireModule.initializeApp(environment.firebase) /* Importado manualmente */
   ],
   providers: [],
   bootstrap: [AppComponent]
