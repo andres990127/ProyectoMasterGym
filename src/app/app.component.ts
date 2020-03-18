@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth'
-import { auth } from 'firebase';
+import { auth, User } from 'firebase';
 
 @Component({
   selector: 'app-root',
@@ -9,10 +9,17 @@ import { auth } from 'firebase';
 })
 export class AppComponent {
   title = 'mastergym';
+  usuario: User; /* Creado manualmente */
+  cargando: boolean = true; /* Creado manualmente, variable para saber cuando la pagina está cargando*/
 
   constructor(private afAuth: AngularFireAuth) /* Creado manualmente */
   {
-
+    this.afAuth.user.subscribe((usuario)=>{ 
+      setTimeout(() => { /* Hago una demora de 2s para mostrar pantalla de carga */
+        this.cargando = false; /* Terminó de cargar */
+        this.usuario = usuario;
+      }, 2000);
+    })
   }
 
   login() { /* Metodo login */

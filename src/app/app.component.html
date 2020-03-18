@@ -1,13 +1,16 @@
 <!-- Html para inicio de sesion -->
-<div *ngIf="afAuth.user | async as user; else showLogin">  <!-- Si el usuario ha iniciado sesion se muestra el codigo, si no redirecciona a "showLogin" -->
-  <h1>Hello {{ user.email }}!</h1> <!-- Mensaje de saludo si inicia sesion -->
+<div *ngIf="usuario && !cargando; else showLogin">  <!-- Si el usuario existe y ya no se está cargando muestra el Html, si no redirecciona a "showLogin" -->
+  <h1>Hello {{ usuario.email }}!</h1> <!-- Mensaje de saludo si inicia sesion -->
   <button (click)="logout()">Logout</button> <!-- Boton para cerrar sesion -->
 </div>
 
 <ng-template #showLogin> <!-- Codigo que se muestra cuando no se ha iniciado sesion -->
-  <p>Please login.</p> <!-- Mensaje de saludo para iniciar sesion -->
-  <button (click)="login()">Login with Google</button>  <!-- Boton para iniciar sesion -->
+  <div *ngIf="cargando"> <!-- Se muestra el html "cargando..." si la variable cargando es true -->
+    cargando...
+  </div>
+  <app-login *ngIf="!cargando"></app-login> <!-- invocamos el componente "login" siempre y cuando la variable cargado sea false -->
 </ng-template>
 <!-- Fin Html inicio de sesion -->
+
 
 <router-outlet></router-outlet>
