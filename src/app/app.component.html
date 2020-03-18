@@ -1,16 +1,13 @@
-<accordion>
-  <accordion-group heading="Static Header">
-    This content is straight in the template.
-  </accordion-group>
-  <accordion-group heading="Another group">
-    <p>Some content</p>
-  </accordion-group>
-  <accordion-group heading="Another group">
-    <p>Some content</p>
-  </accordion-group>
-  <accordion-group heading="Another group">
-    <p>Some content</p>
-  </accordion-group>
-</accordion>
+<!-- Html para inicio de sesion -->
+<div *ngIf="afAuth.user | async as user; else showLogin">  <!-- Si el usuario ha iniciado sesion se muestra el codigo, si no redirecciona a "showLogin" -->
+  <h1>Hello {{ user.email }}!</h1> <!-- Mensaje de saludo si inicia sesion -->
+  <button (click)="logout()">Logout</button> <!-- Boton para cerrar sesion -->
+</div>
+
+<ng-template #showLogin> <!-- Codigo que se muestra cuando no se ha iniciado sesion -->
+  <p>Please login.</p> <!-- Mensaje de saludo para iniciar sesion -->
+  <button (click)="login()">Login with Google</button>  <!-- Boton para iniciar sesion -->
+</ng-template>
+<!-- Fin Html inicio de sesion -->
 
 <router-outlet></router-outlet>

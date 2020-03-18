@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'; /* Importado manualmente */
 import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
+import { AngularFireAuth } from '@angular/fire/auth';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,9 @@ import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
     BrowserAnimationsModule, /* Importado manualmente */
     AngularFireModule.initializeApp(environment.firebase) /* Importado manualmente */
   ],
-  providers: [],
+  providers: [
+    AngularFireAuth
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
