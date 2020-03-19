@@ -10,6 +10,8 @@ import { AngularFireAuth } from '@angular/fire/auth';
 export class LoginComponent implements OnInit {
 
   formularioLogin: FormGroup /* Importamos "Form Group" para hacer validaciones en el formulario */
+  datosCorrectos: boolean = true /* Creamos variable para saber si los datos ingresados son correctos con valor true para que no se muestre desde el principio */
+  textoError: string = '' /* Esta variable contendra el mensaje de error */
 
   constructor(private creadorFormulario: FormBuilder, private afAuth: AngularFireAuth) /* Se inyecta el servicio y el AngularFireAuth */ 
   {
@@ -27,12 +29,21 @@ export class LoginComponent implements OnInit {
     })                                                 /* Fin validadores */
   }
 
-  ingresar() /* Funcion que llama el boton de inicio de sesion */
-  {
-    /* Se ingresa usuario y contraseña del formulario creado por medio de la funcion FireBase y se retorna por consola el usuario */
-    this.afAuth.auth.signInWithEmailAndPassword(this.formularioLogin.value.email, this.formularioLogin.value.password).then((usuario)=>{
-      console.log(usuario)
-    })
+  ingresar() /* Funcion que llama el boton de inicio de sesion */ {
+    if (this.formularioLogin.valid) { /* Evaluamos si los datos ingresados son correctos */
+      this.datosCorrectos = true; /* Asignamos la variable datosCorrectos como verdadera */
+      /* Se ingresa usuario y contraseña del formulario creado por medio de la funcion FireBase y se retorna por consola el usuario */
+      this.afAuth.auth.signInWithEmailAndPassword(this.formularioLogin.value.email, this.formularioLogin.value.password).then((usuario) => {
+        console.log(usuario)
+      }).catch((error)=>{ /* Atrapamos cualquier error en el intento de inicio de sesion */
+        this.datosCorrectos = false; /* Al encontrar un error colocamos la variable datosCorrectos como falsa */
+        this.textoError = error.message /* Mostramos al usuario el error encontrado en el catch */
+      })
+    }
+    else {
+      this.datosCorrectos = false; /* Al no entrar al if asignamos la variable datosCorrectos como falsa */
+      this.textoError = '¡Revisa que los datos esten correctos!' /* Llenamos la variable de reporte de errores */
+    }
   }
 
 }
