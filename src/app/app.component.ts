@@ -15,10 +15,10 @@ export class AppComponent {
   constructor(private afAuth: AngularFireAuth) /* Creado manualmente */
   {
     this.afAuth.user.subscribe((usuario)=>{ 
-      setTimeout(() => { /* Hago una demora de 2s para mostrar pantalla de carga */
+      setTimeout(() => { /* Hago una demora de 1s para mostrar pantalla de carga */
         this.cargando = false; /* Terminó de cargar */
         this.usuario = usuario;
-      }, 2000);
+      }, 1000);
     })
   }
 

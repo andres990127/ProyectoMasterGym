@@ -1,1 +1,20 @@
-<p>login works!</p>
+<div class="container">
+    <div class="text-center mt-5">
+        <img src="assets/DominarGym.jpg"> <!-- Imagen centrada y con 5 de margen de DominarGym -->
+        <h3>Bienvenido, por favor ingrese sus datos</h3>
+    </div>
+                                   <!--   Inicio formulario login -->
+    <form [formGroup]="formularioLogin"> <!-- Importado de bootstrap, el form se le asocia el formulario creado para sus validaciones -->
+        <div class="form-group">
+          <label for="email">Correo Electronico</label>
+          <input type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electronico">
+        </div>                          <!-- Se agrega el formControlName ↑↑↑ -->
+        <div class="form-group">
+          <label for="password">Contraseña</label>
+          <input type="password" class="form-control" id="password" formControlName="password" placeholder="Ingrese su contraseña">
+        </div>                          <!-- Se agrega el formControlName ↑↑↑ -->
+        
+        <button type="submit" (click)="ingresar()" [disabled]="!formularioLogin.valid" class="btn btn-primary">Ingresar</button>
+      </form>
+                                   <!--   Fin formulario login -->
+</div>

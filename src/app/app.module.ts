@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
-
+import { ReactiveFormsModule } from '@angular/forms'; /* Importado manualmente */
 @NgModule({
   declarations: [
     AppComponent,
@@ -19,7 +19,8 @@ import { LoginComponent } from './login/login.component';
     AppRoutingModule,
     AccordionModule.forRoot(), /* Importado manualmente */
     BrowserAnimationsModule, /* Importado manualmente */
-    AngularFireModule.initializeApp(environment.firebase) /* Importado manualmente */
+    AngularFireModule.initializeApp(environment.firebase), /* Importado manualmente */
+    ReactiveFormsModule /* Importado manualmente */
   ],
   providers: [
     AngularFireAuth
