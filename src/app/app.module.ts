@@ -13,6 +13,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { EncabezadoComponent } from './encabezado/encabezado.component'; /* Importado manualmente */
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component'; /* Importado manualmente - Animación de NAVBAR */
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { ListadoClientesComponent } from './listado-clientes/listado-clientes.co
     BsDropdownModule.forRoot() /* Importado manualmente, animacion NAVBAR */
   ],
   providers: [
-    AngularFireAuth
+    AngularFireAuth,
+    AngularFirestore /* Importado manualmente */
   ],
   bootstrap: [AppComponent]
 })
