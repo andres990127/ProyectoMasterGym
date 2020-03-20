@@ -9,6 +9,7 @@ import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms'; /* Importado manualmente */
+import { NgxSpinnerModule } from "ngx-spinner"; /* Importado manualmente */
 @NgModule({
   declarations: [
     AppComponent,
@@ -20,7 +21,8 @@ import { ReactiveFormsModule } from '@angular/forms'; /* Importado manualmente *
     AccordionModule.forRoot(), /* Importado manualmente */
     BrowserAnimationsModule, /* Importado manualmente */
     AngularFireModule.initializeApp(environment.firebase), /* Importado manualmente */
-    ReactiveFormsModule /* Importado manualmente */
+    ReactiveFormsModule, /* Importado manualmente */
+    NgxSpinnerModule /* Importado manualmente -- PRIMERO SE EJECUTA EN LA TERMINAL EL COD: npm install ngx-spinner --save */
   ],
   providers: [
     AngularFireAuth

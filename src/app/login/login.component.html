@@ -1,33 +1,50 @@
 <div class="container">
-    <div class="text-center mt-5">
-        <img src="assets/DominarGym.jpg"> <!-- Imagen centrada y con 5 de margen de DominarGym -->
-        <h3>Bienvenido, por favor ingrese sus datos</h3>
-    </div>
-                                   <!--   Inicio formulario login -->
-    <form [formGroup]="formularioLogin"> <!-- Importado de bootstrap, el form se le asocia el formulario creado para sus validaciones -->
-        <div class="form-group">
-          <label for="email">Correo Electronico</label>
-          <input type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp" placeholder="Ingrese su correo electronico">
-                                 <!-- Se agrega el formControlName ↑↑↑ -->
-           <div *ngIf="formularioLogin.controls['email'].invalid && formularioLogin.controls['email'].dirty" class="alert alert-danger" role="alert"> <!-- Si el email es invalido o el campo está sucio insertamos una alerta para el correo -->
-            <span *ngIf="formularioLogin.controls['email'].errors.required">correo electronico es requerido</span> 
-            <span *ngIf="formularioLogin.controls['email'].errors.email"> correo electronico no es valido</span> 
-           </div>
-         </div> 
-        <div class="form-group">
-          <label for="password">Contraseña</label>
-          <input type="password" (keyUp.enter)="ingresar()" class="form-control" id="password" formControlName="password" placeholder="Ingrese su contraseña">
-                                                                          <!-- Se agrega el formControlName ↑↑↑ -->
-          <div *ngIf="formularioLogin.controls['password'].invalid && formularioLogin.controls['password'].dirty" class="alert alert-danger" role="alert"> <!-- Si la contraseña es invalida o el campo está sucio insertamos una alerta para la contraseña -->
-           <span *ngIf="formularioLogin.controls['password'].errors.required">correo electronico es requerido</span> 
-          </div>
-        </div> 
-        
-        <button type="submit" (click)="ingresar()" [disabled]="!formularioLogin.valid" class="btn btn-primary">Ingresar</button> <!-- Boton ingresar -->
-      </form>
-                                   <!--   Fin formulario login -->
-
-      <div *ngIf="!datosCorrectos" class="alert alert-warning" role="alert"> <!-- Si los datosCorrectos es falsa, es decir que debemos mostrar el error --> 
-        {{textoError}}
+  <div class="text-center mt-5">
+    <img src="assets/DominarGym.jpg"> <!-- Imagen centrada y con 5 de margen de DominarGym -->
+    <h3>Bienvenido, por favor ingrese sus datos</h3>
+  </div>
+                                      <!--   Inicio formulario login -->
+  <form [formGroup]="formularioLogin">
+    <!-- Importado de bootstrap, el form se le asocia el formulario creado para sus validaciones -->
+    <div class="form-group">
+      <label for="email">Correo Electronico</label>
+      <input type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp"
+        placeholder="Ingrese su correo electronico">
+      <!-- Se agrega el formControlName ↑↑↑ -->
+      <div *ngIf="formularioLogin.controls['email'].invalid && formularioLogin.controls['email'].dirty"
+        class="alert alert-danger" role="alert">
+        <!-- Si el email es invalido o el campo está sucio insertamos una alerta para el correo -->
+        <span *ngIf="formularioLogin.controls['email'].errors.required">correo electronico es requerido</span>
+        <span *ngIf="formularioLogin.controls['email'].errors.email"> correo electronico no es valido</span>
       </div>
+    </div>
+    <div class="form-group">
+      <label for="password">Contraseña</label>
+      <input type="password" (keyUp.enter)="ingresar()" class="form-control" id="password" formControlName="password"
+        placeholder="Ingrese su contraseña">
+      <!-- Se agrega el formControlName ↑↑↑ -->
+      <div *ngIf="formularioLogin.controls['password'].invalid && formularioLogin.controls['password'].dirty"
+        class="alert alert-danger" role="alert">
+        <!-- Si la contraseña es invalida o el campo está sucio insertamos una alerta para la contraseña -->
+        <span *ngIf="formularioLogin.controls['password'].errors.required">correo electronico es requerido</span>
+      </div>
+    </div>
+
+    <button type="submit" (click)="ingresar()" [disabled]="!formularioLogin.valid"
+      class="btn btn-primary">Ingresar</button> <!-- Boton ingresar -->
+  </form>
+                                  <!--   Fin formulario login -->
+
+  <div *ngIf="!datosCorrectos" class="alert alert-warning" role="alert">
+    <!-- Si los datosCorrectos es falsa, es decir que debemos mostrar el error -->
+    {{textoError}}
+  </div>
+
+<!--                                   Inicio de loading -->
+  <ngx-spinner bdOpacity=0.9 bdColor="#333" size="medium" color="#fff" type="pacman" [fullScreen]="true">
+    <p style="color: rgb(253, 253, 253)"> Ingresando... </p>
+  </ngx-spinner>
+  <!--                                  Fin de loading -->
+
+
 </div>

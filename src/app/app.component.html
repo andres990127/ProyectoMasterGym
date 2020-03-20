@@ -5,8 +5,8 @@
 </div>
 
 <ng-template #showLogin> <!-- Codigo que se muestra cuando no se ha iniciado sesion -->
-  <div *ngIf="cargando"> <!-- Se muestra el html "cargando..." si la variable cargando es true -->
-    cargando...
+  <div *ngIf="cargando" class="text-center"> <!-- Se muestra el html "cargando..." si la variable cargando es true -->
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div> <!-- Imagen cargando sacada de "loading css" -->
   </div>
   <app-login *ngIf="!cargando"></app-login> <!-- invocamos el componente "login" siempre y cuando la variable cargado sea false -->
 </ng-template>
