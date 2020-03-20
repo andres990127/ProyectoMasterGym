@@ -15,16 +15,16 @@ export class AppComponent {
   constructor(private afAuth: AngularFireAuth) /* Creado manualmente */
   {
     this.afAuth.user.subscribe((usuario)=>{ 
-      setTimeout(() => { /* Hago una demora de 1s para mostrar pantalla de carga */
         this.cargando = false; /* Terminó de cargar */
         this.usuario = usuario;
-      }, 1000);
     })
   }
 
-  login() { /* Metodo login */
+   /* SIN USO */
+  login() { /* Metodo login para ingresar de ejemplo*/
     this.afAuth.auth.signInWithEmailAndPassword('tomasgaray07@gmail.com', '123456789')
   }
+  
   logout() { /* Metodo cerrar sesion */
     this.afAuth.auth.signOut();
   }

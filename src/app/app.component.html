@@ -1,6 +1,9 @@
 <!-- Html para inicio de sesion -->
 <div *ngIf="usuario && !cargando; else showLogin">  <!-- Si el usuario existe y ya no se está cargando muestra el Html, si no redirecciona a "showLogin" -->
-  <h1>Hello {{ usuario.email }}!</h1> <!-- Mensaje de saludo si inicia sesion -->
+  <app-encabezado></app-encabezado> <!-- Componente que se muestra al iniciar sesion exitosamente -->
+  <router-outlet></router-outlet>
+  <h1>Hola, {{usuario.email}}</h1><!--  Saludo de inicio de sesion -->
+
   <button (click)="logout()">Logout</button> <!-- Boton para cerrar sesion -->
 </div>
 
@@ -13,4 +16,3 @@
 <!-- Fin Html inicio de sesion -->
 
 
-<router-outlet></router-outlet>
