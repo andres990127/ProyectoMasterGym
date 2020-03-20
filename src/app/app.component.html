@@ -2,9 +2,6 @@
 <div *ngIf="usuario && !cargando; else showLogin">  <!-- Si el usuario existe y ya no se está cargando muestra el Html, si no redirecciona a "showLogin" -->
   <app-encabezado></app-encabezado> <!-- Componente que se muestra al iniciar sesion exitosamente -->
   <router-outlet></router-outlet>
-  <h1>Hola, {{usuario.email}}</h1><!--  Saludo de inicio de sesion -->
-
-  <button (click)="logout()">Logout</button> <!-- Boton para cerrar sesion -->
 </div>
 
 <ng-template #showLogin> <!-- Codigo que se muestra cuando no se ha iniciado sesion -->

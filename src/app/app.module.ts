@@ -8,20 +8,23 @@ import { environment } from 'src/environments/environment';
 import { AngularFireModule } from '@angular/fire'; /* Importado manualmente */
 import { AngularFireAuth } from '@angular/fire/auth';
 import { LoginComponent } from './login/login.component';
-import { ReactiveFormsModule } from '@angular/forms'; /* Importado manualmente */
+import { ReactiveFormsModule, FormsModule } from '@angular/forms'; /* Importado manualmente */
 import { NgxSpinnerModule } from "ngx-spinner";
 import { EncabezadoComponent } from './encabezado/encabezado.component'; /* Importado manualmente */
-import { BsDropdownModule } from 'ngx-bootstrap/dropdown'; /* Importado manualmente - Animación de NAVBAR */
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component'; /* Importado manualmente - Animación de NAVBAR */
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    EncabezadoComponent
+    EncabezadoComponent,
+    ListadoClientesComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    FormsModule, /* Importado manualmente */
     AccordionModule.forRoot(), /* Importado manualmente */
     BrowserAnimationsModule, /* Importado manualmente */
     AngularFireModule.initializeApp(environment.firebase), /* Importado manualmente */

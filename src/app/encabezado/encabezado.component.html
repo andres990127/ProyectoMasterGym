@@ -19,13 +19,13 @@
 
                                    <!--↓↓↓ Se inserta el dropdown manualmente -->
         <li class="nav-item dropdown" dropdown>
-          <a class="nav-link dropdown-toggle" dropdownToggle href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  
+          <a class="nav-link dropdown-toggle" dropdownToggle id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  
             Clientes                         <!-- ↑↑↑ Se inserta el dropDownToggle manualmente -->
           </a>                      <!-- ↓↓↓ Se inserta el *dropdownMenu manualmente -->
           <div class="dropdown-menu" *dropdownMenu aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="#">Agregar clientes</a>
             <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Ver clientes</a>
+            <a class="dropdown-item" routerLink="/listado-clientes">Ver clientes</a>
           </div>
         </li>
 
@@ -60,4 +60,6 @@
       </ul>
 
     </div>
+
+    <button class="btn btn-danger"(click)="logout()">Salir</button>
   </nav>

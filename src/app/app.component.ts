@@ -19,13 +19,5 @@ export class AppComponent {
         this.usuario = usuario;
     })
   }
-
-   /* SIN USO */
-  login() { /* Metodo login para ingresar de ejemplo*/
-    this.afAuth.auth.signInWithEmailAndPassword('tomasgaray07@gmail.com', '123456789')
-  }
   
-  logout() { /* Metodo cerrar sesion */
-    this.afAuth.auth.signOut();
-  }
 }
