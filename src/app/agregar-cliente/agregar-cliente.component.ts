@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-agregar-cliente',
@@ -13,7 +14,12 @@ export class AgregarClienteComponent implements OnInit {
   formularioCliente: FormGroup; /* Creamos el nuevo formulario para ingresar al cliente */
   porcentajeSubida: number = 0; /* Variable que guardara el porcentaje de subida de la imagen */
   urlImagen: string =""; /* Variable que guardara la url de la imagen en la BD */
-  constructor(private fb: FormBuilder, private storage: AngularFireStorage, private db: AngularFirestore) { } /* Inyectamos el servicio de formularios, el servicio de guardado de la BD AngularFire y las colecciones */
+  constructor(
+    private fb: FormBuilder,  /* Inyectamos el servicio de formularios */
+    private storage: AngularFireStorage, /* Inyectamos el servicio de guardado de la BD AngularFire */
+    private db: AngularFirestore, /* Inyectamos el servicio de colecciones */
+    private activeRoute: ActivatedRoute
+    ) { } 
 
   ngOnInit() {
     /*         Codigo para validar formulario */
@@ -29,6 +35,24 @@ export class AgregarClienteComponent implements OnInit {
       imgUrl: ['', Validators.required]
     })
     /*         Fin codigo para validar formulario */
+
+    /*         Codigo para leer parametro por URL */
+    let id = this.activeRoute.snapshot.params.clienteID;/*  Asigno a la variable 'id' el parametro id del cliente mandado por URL */
+    this.db.doc<any>('clientes/' + id).valueChanges().subscribe((cliente)=> /* Leo en la base de datos el cliente con la id dada */
+    {
+      console.log(cliente) /* Muestro la informacion de ese cliente por consola */
+      this.formularioCliente.setValue({ /* Asigno al formulario toda la informacion de la base de datos del cliente */
+        apellido: cliente.apellido,
+        correo: cliente.correo,
+        fechaNacimiento: cliente.fechaNacimiento,
+        telefono: cliente.telefono,
+        cedula: cliente.cedula,
+        imgUrl: '', /* Relleno para evitar error */
+        nombre: cliente.nombre
+      })
+      this.urlImagen = cliente.imgUrl /* El formato imagen se debe definir así */
+    });
+    /*          Fin de codigo para leer parametro por URL */
 
   }
 

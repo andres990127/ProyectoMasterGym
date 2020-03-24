@@ -10,7 +10,10 @@ const routes: Routes = [
   },
   {
     path: 'agregar-cliente', component: AgregarClienteComponent
-  }
+  },
+  {
+    path: 'agregar-cliente/:clienteID', component: AgregarClienteComponent /* Se duplica para expresar que la ruta puede recibir, o no, un parametro */
+  } /* Significa que recibe algo ↑↑↑ */ 
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@
                 <div class="card-body">
                   <p>{{cliente.id}}</p> <!-- Se muestra el id del cliente -->
                   <h5 class="card-title">{{cliente.nombre}} {{cliente.apellido}}</h5> <!-- Se muestra el nombre y apellido del cliente -->
-                  <a href="#" class="card-link">Editar</a> <!-- Link de editar -->
+                  <a [routerLink]="['/agregar-cliente/', cliente.id]" class="card-link">Editar</a> <!-- Link de editar -- ¡¡¡OJO!!! ¡CODIGO PARA ACCEDER A URL MAS UN PARAMETRO! -->
                   <a href="#" class="card-link text-danger">Desactivar</a> <!-- Link de desactivar -->
                 </div>
               </div>
