@@ -14,17 +14,21 @@ import { EncabezadoComponent } from './encabezado/encabezado.component'; /* Impo
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component'; /* Importado manualmente - Animación de NAVBAR */
 import { AngularFirestore } from '@angular/fire/firestore';
+import { AgregarClienteComponent } from './agregar-cliente/agregar-cliente.component';
+import { ProgressbarModule } from 'ngx-bootstrap/progressbar'; /* Importado manualmente */
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     EncabezadoComponent,
-    ListadoClientesComponent
+    ListadoClientesComponent,
+    AgregarClienteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    ProgressbarModule.forRoot(), /* Importado manualmente */
     FormsModule, /* Importado manualmente */
     AccordionModule.forRoot(), /* Importado manualmente */
     BrowserAnimationsModule, /* Importado manualmente */
