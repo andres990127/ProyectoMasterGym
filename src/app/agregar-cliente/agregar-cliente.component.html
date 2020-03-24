@@ -69,8 +69,8 @@
 
             <div class="col-sm-12"> <!-- Se declara una columna con un valor de 12 --(Es decir que ocupa toda la fila)-->
                 <div class="form-group">
-                    <label for="">Imagen</label>           <!-- ↓↓↓ Se debe colocar el formControlName como aparece en los validadores y en la base de datos -->
-                    <input type="file" class="form-control-file" formControlName="imgUrl" placeholder="Agrege su imagen">
+                    <label for="">Imagen</label>                                                <!-- ↓↓↓ Se debe colocar el formControlName como aparece en los validadores y en la base de datos -->
+                    <input type="file" (change)="subirImagen($event)" class="form-control-file" formControlName="imgUrl" placeholder="Agrege su imagen">
                     <div *ngIf="formularioCliente.controls['imgUrl'].invalid && formularioCliente.controls['imgUrl'].dirty"
                         class="alert alert-danger" role="alert">
                         <!-- Si el email es invalido o el campo está sucio insertamos una alerta para el correo -->
@@ -79,7 +79,7 @@
                 </div>                                      
             </div>
             <div class="col-sm-12"> <!-- Se declara una columna con un valor de 12 --(Es decir que ocupa toda la fila)-->
-                <progressbar [value]="22" type="danger" [striped]="true">22%</progressbar>
+                <progressbar [value]="porcentajeSubida" type="danger" [striped]="true">{{porcentajeSubida}}%</progressbar>
             </div>
 
             <br><br>
