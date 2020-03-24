@@ -83,7 +83,8 @@
             </div>
 
             <br><br>
-            <button class="btn btn-primary" [disabled]="formularioCliente.invalid" (click)="agregar()">Agregar</button> <!-- Boton para agregar el cliente nuevo -->
+            <button *ngIf="!esEditable" class="btn btn-primary" [disabled]="formularioCliente.invalid && !urlImagen" (click)="agregar()">Agregar</button> <!-- Boton para agregar el cliente nuevo -->
+            <button *ngIf="esEditable" class="btn btn-primary" [disabled]="formularioCliente.invalid && !urlImagen" (click)="editar()">Editar</button> <!-- Boton para editar el cliente  -->
         </div>
     </form>
 </div>

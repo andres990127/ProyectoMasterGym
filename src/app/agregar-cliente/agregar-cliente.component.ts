@@ -13,7 +13,10 @@ export class AgregarClienteComponent implements OnInit {
 
   formularioCliente: FormGroup; /* Creamos el nuevo formulario para ingresar al cliente */
   porcentajeSubida: number = 0; /* Variable que guardara el porcentaje de subida de la imagen */
-  urlImagen: string =""; /* Variable que guardara la url de la imagen en la BD */
+  urlImagen: string = '' /* Variable que guardara la url de la imagen en la BD */
+  esEditable: boolean = false; /* Variable para mostrar si el boton es "agregar" como falso o "editar" como true */
+  id: string; /* Variable que guardará el id enviado via URL */
+
   constructor(
     private fb: FormBuilder,  /* Inyectamos el servicio de formularios */
     private storage: AngularFireStorage, /* Inyectamos el servicio de guardado de la BD AngularFire */
@@ -37,22 +40,30 @@ export class AgregarClienteComponent implements OnInit {
     /*         Fin codigo para validar formulario */
 
     /*         Codigo para leer parametro por URL */
-    let id = this.activeRoute.snapshot.params.clienteID;/*  Asigno a la variable 'id' el parametro id del cliente mandado por URL */
-    this.db.doc<any>('clientes/' + id).valueChanges().subscribe((cliente)=> /* Leo en la base de datos el cliente con la id dada */
+    this.id = this.activeRoute.snapshot.params.clienteID;/*  Asigno a la variable 'id' el parametro id del cliente mandado por URL */
+
+    if (this.id != undefined) /* Si se recibe un parametro por el URL entonces... */
+    {
+      this.esEditable = true; /* La variable esEditable cambia debido a que entramos por el link editar */
+      this.db.doc<any>('clientes'+ '/' + this.id).valueChanges().subscribe((cliente)=> /* Leo en la base de datos el cliente con la id dada */
     {
       console.log(cliente) /* Muestro la informacion de ese cliente por consola */
       this.formularioCliente.setValue({ /* Asigno al formulario toda la informacion de la base de datos del cliente */
+        nombre: cliente.nombre,
         apellido: cliente.apellido,
         correo: cliente.correo,
-        fechaNacimiento: cliente.fechaNacimiento,
+        fechaNacimiento: new Date (cliente.fechaNacimiento.seconds * 1000).toISOString().substr(0,10), /* Ajusto el formato fecha */
         telefono: cliente.telefono,
         cedula: cliente.cedula,
-        imgUrl: '', /* Relleno para evitar error */
-        nombre: cliente.nombre
+        imgUrl: '' /* Relleno para evitar error */
+        
       })
-      this.urlImagen = cliente.imgUrl /* El formato imagen se debe definir así */
+
+      this.urlImagen = cliente.imgUrl; /* El formato imagen se debe definir así */
+
     });
-    /*          Fin de codigo para leer parametro por URL */
+    } /*          Fin de codigo para leer parametro por URL */
+    
 
   }
 
@@ -63,6 +74,17 @@ export class AgregarClienteComponent implements OnInit {
     console.log(this.formularioCliente.value)
     this.db.collection('clientes').add(this.formularioCliente.value).then((termino)=>{
       console.log('Registro Creado')
+    })
+  }
+
+  editar()
+  {
+    this.formularioCliente.value.imgUrl = this.urlImagen /* Asginamos a la variable del formulario la URL de la imagen de la BD */
+    this.formularioCliente.value.fechaNacimiento = new Date (this.formularioCliente.value.fechaNacimiento) /* Damos el formato a la fecha de string a date */
+    this.db.doc('clientes/' + this.id).update(this.formularioCliente.value).then((resultado)=>{
+      console.log('Se edito correctamente')
+    }).catch(()=>{
+      console.log('Error')
     })
   }
 
