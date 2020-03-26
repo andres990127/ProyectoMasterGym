@@ -3,6 +3,8 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AngularFireStorage } from '@angular/fire/storage';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { ActivatedRoute } from '@angular/router';
+import { MensajesService } from '../services/mensajes.service';
+
 
 @Component({
   selector: 'app-agregar-cliente',
@@ -21,7 +23,8 @@ export class AgregarClienteComponent implements OnInit {
     private fb: FormBuilder,  /* Inyectamos el servicio de formularios */
     private storage: AngularFireStorage, /* Inyectamos el servicio de guardado de la BD AngularFire */
     private db: AngularFirestore, /* Inyectamos el servicio de colecciones */
-    private activeRoute: ActivatedRoute
+    private activeRoute: ActivatedRoute,
+    private msj: MensajesService /* Inyecto el servicio de mensajes SWEETALERT */
     ) { } 
 
   ngOnInit() {
@@ -73,7 +76,7 @@ export class AgregarClienteComponent implements OnInit {
     this.formularioCliente.value.fechaNacimiento = new Date (this.formularioCliente.value.fechaNacimiento) /* Damos el formato a la fecha de string a date */
     console.log(this.formularioCliente.value)
     this.db.collection('clientes').add(this.formularioCliente.value).then((termino)=>{
-      console.log('Registro Creado')
+      this.msj.mensajeCorrecto('Agregar',('Se agregó correctamente')) /* Invoco servicio de correcto de SWEETALERT de mensaje correcto */
     })
   }
 
@@ -82,9 +85,9 @@ export class AgregarClienteComponent implements OnInit {
     this.formularioCliente.value.imgUrl = this.urlImagen /* Asginamos a la variable del formulario la URL de la imagen de la BD */
     this.formularioCliente.value.fechaNacimiento = new Date (this.formularioCliente.value.fechaNacimiento) /* Damos el formato a la fecha de string a date */
     this.db.doc('clientes/' + this.id).update(this.formularioCliente.value).then((resultado)=>{
-      console.log('Se edito correctamente')
+      this.msj.mensajeCorrecto('Editar',('Se editó correctamente')) /* Invoco servicio de correcto de SWEETALERT de mensaje correcto */
     }).catch(()=>{
-      console.log('Error')
+      this.msj.mensajeError('Error',('Ocurrió algun error')) /* Invoco servicio de error de SWEETALERT de mensaje correcto */
     })
   }
 

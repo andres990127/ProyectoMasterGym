@@ -17,6 +17,7 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { AgregarClienteComponent } from './agregar-cliente/agregar-cliente.component';
 import { ProgressbarModule } from 'ngx-bootstrap/progressbar'; /* Importado manualmente */
 import { AngularFireStorageModule } from '@angular/fire/storage'; /* Importado manualmente */
+import { MensajesService } from './services/mensajes.service';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { AngularFireStorageModule } from '@angular/fire/storage'; /* Importado m
   ],
   providers: [
     AngularFireAuth,
-    AngularFirestore /* Importado manualmente */
+    AngularFirestore, /* Importado manualmente */
+    MensajesService /* Importado manualmente */
   ],
   bootstrap: [AppComponent]
 })
