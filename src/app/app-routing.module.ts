@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ListadoClientesComponent } from './listado-clientes/listado-clientes.component';
 import { AgregarClienteComponent } from './agregar-cliente/agregar-cliente.component';
+import { PreciosComponent } from './precios/precios.component';
 
 
 const routes: Routes = [
@@ -13,7 +14,10 @@ const routes: Routes = [
   },
   {
     path: 'agregar-cliente/:clienteID', component: AgregarClienteComponent /* Se duplica para expresar que la ruta puede recibir, o no, un parametro */
-  } /* Significa que recibe algo ↑↑↑ */ 
+  }, /* Significa que recibe algo ↑↑↑ */
+  {
+    path: 'precios', component: PreciosComponent
+  } 
 ];
 
 @NgModule({

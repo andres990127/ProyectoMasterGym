@@ -29,16 +29,11 @@
           </div>
         </li>
 
-        <li class="nav-item dropdown" dropdown>
-            <a class="nav-link dropdown-toggle" dropdownToggle href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">  
-              Precios                         <!-- ↑↑↑ Se inserta el dropDownToggle manualmente -->
-            </a>                      <!-- ↓↓↓ Se inserta el *dropdownMenu manualmente -->
-            <div class="dropdown-menu" *dropdownMenu aria-labelledby="navbarDropdown">
-              <a class="dropdown-item" href="#">Agregar</a>
-              <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#">Ver precios</a>
-            </div>
-          </li>
+
+        <li class="nav-item"> 
+          <a class="nav-link" routerLink="/precios" >Precios <span class="sr-only"></span></a>
+        </li> 
+
 
           <li class="nav-item"> 
             <a class="nav-link" href="#">Usuarios <span class="sr-only"></span></a>
