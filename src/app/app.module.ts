@@ -19,6 +19,8 @@ import { ProgressbarModule } from 'ngx-bootstrap/progressbar'; /* Importado manu
 import { AngularFireStorageModule } from '@angular/fire/storage'; /* Importado manualmente */
 import { MensajesService } from './services/mensajes.service';
 import { PreciosComponent } from './precios/precios.component';
+import { InscripcionComponent } from './inscripcion/inscripcion.component';
+import { SeleccionarClienteComponent } from './seleccionar-cliente/seleccionar-cliente.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,9 @@ import { PreciosComponent } from './precios/precios.component';
     EncabezadoComponent,
     ListadoClientesComponent,
     AgregarClienteComponent,
-    PreciosComponent
+    PreciosComponent,
+    InscripcionComponent,
+    SeleccionarClienteComponent
   ],
   imports: [
     BrowserModule,
