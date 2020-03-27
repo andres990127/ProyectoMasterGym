@@ -3,7 +3,9 @@
         <div class="col-sm-8">
             <h4>Precios</h4>
             <ul>                      <!-- ↓↓↓ Así se llama el arreglo -->
-                <li *ngFor="let precio of precios" > {{precio.nombre}} </li>
+                <li *ngFor="let precio of precios" (click)="editarPrecio(precio)" >
+                    <a>{{precio.nombre}} id: {{precio.id}}</a>
+                </li>
             </ul>
         </div>
 
@@ -37,8 +39,8 @@
                         <option value="5">Año</option>
                     </select>
                 </div>
-                <button [disabled]="formularioPrecio.invalid" class="btn btn-primary" (click)="agregar()">Agregar</button>
-                <button [disabled]="formularioPrecio.invalid" class="btn btn-danger">Editar</button>
+                <button *ngIf="!esEditar" [disabled]="formularioPrecio.invalid" class="btn btn-primary" (click)="agregar()">Agregar</button>
+                <button *ngIf="esEditar" [disabled]="formularioPrecio.invalid" class="btn btn-danger" (click)="editar()">Editar</button>
             </form>
         </div>
     </div>
