@@ -2,34 +2,34 @@
     <div class="row">
         <div class="col-sm-8">
             <h4>Precios</h4>
-            <ul>
-                <li>Suscripcion semanal</li>
-                <li>Suscripcion mensual</li> 
+            <ul>                      <!-- ↓↓↓ Así se llama el arreglo -->
+                <li *ngFor="let precio of precios" > {{precio.nombre}} </li>
             </ul>
         </div>
 
         <div class="col-sm-4">
             <h5>Agregar/Editar</h5>
-            <form action="">
+            <form [formGroup]= formularioPrecio> <!-- Debo de importar dentro del form el formulario creado en el componente.ts -->
 
+                               <!--  Debo importar los FormControlName de cada imput para su respectiva validacion -->
                 <div class="form-group">
                     <label for="">Nombre</label>
-                    <input class="form-control" type="text">
+                    <input formControlName="nombre" class="form-control" type="text">
                 </div>
 
                 <div class="form-group">
                     <label for="">Costo</label>
-                    <input class="form-control" type="number">
+                    <input formControlName="costo" class="form-control" type="number">
                 </div>
 
                 <div class="form-group">
                     <label for="">Duración</label>
-                    <input class="form-control" type="number">
+                    <input formControlName="duracion" class="form-control" type="number">
                 </div>
 
                 <div class="form-group">
                     <label for="">Tipo de duración</label>
-                    <select class="form-control">
+                    <select formControlName="tipoDuracion" class="form-control">
                         <option value="1">Día</option>
                         <option value="2">Semana</option>
                         <option value="3">Quincena</option>
@@ -37,8 +37,8 @@
                         <option value="5">Año</option>
                     </select>
                 </div>
-                <button class="btn btn-primary">Agregar</button>
-                <button class="btn btn-danger">Editar</button>
+                <button [disabled]="formularioPrecio.invalid" class="btn btn-primary" (click)="agregar()">Agregar</button>
+                <button [disabled]="formularioPrecio.invalid" class="btn btn-danger">Editar</button>
             </form>
         </div>
     </div>

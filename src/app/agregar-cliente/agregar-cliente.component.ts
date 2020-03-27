@@ -77,6 +77,7 @@ export class AgregarClienteComponent implements OnInit {
     console.log(this.formularioCliente.value)
     this.db.collection('clientes').add(this.formularioCliente.value).then((termino)=>{
       this.msj.mensajeCorrecto('Agregar',('Se agregó correctamente')) /* Invoco servicio de correcto de SWEETALERT de mensaje correcto */
+      this.formularioCliente.reset(); /* Dejo limpio el formulario (Dejo los inputs sin llenar) */
     })
   }
 
