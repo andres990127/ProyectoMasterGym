@@ -11,8 +11,9 @@
         
         <div>
             <label for="">Precio</label>
-            <select class="form-control" name="" id="">
-                <option *ngFor="let precio of precios" value=""Diaria>{{precio.nombre}}</option>
+            <select (change)="seleccionarPrecio($event.target.value)"  class="form-control" name="" id="">
+                <option [value]="null">Seleccione un precio</option> <!-- Valor que muestra al lista por default -->
+                <option *ngFor="let precio of precios" [value]="precio.id" Diaria>{{precio.nombre}}</option> <!-- Lectura de precios en la BD -->
             </select>
         </div>
 

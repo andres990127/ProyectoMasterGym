@@ -12,16 +12,17 @@ import { Precio } from '../models/precio';
 export class InscripcionComponent implements OnInit {
   inscripcion: Inscripcion = new Inscripcion(); /* Variable que guardara los datos de la inscripcion */
   clienteSeleccionado: Cliente = new Cliente(); /* Variable que guardara el cliente relacionado a la inscripcion */
-  precios: Precio[] = new Array<Precio>();
-  constructor(private db: AngularFirestore) { }
+  precios: Precio[] = new Array<Precio>(); /* Array que almacenará todos los precios disponibles en la BD */
+  precioSeleccionado: Precio = new Precio(); /* Variable que contendra el precio de la el tipo de mensualidad seleccionada */
+  constructor(private db: AngularFirestore) { } /* Inyecto servicio de lectura de datos de la base de datos */
 
   ngOnInit() {
-    this.db.collection('precios').get().subscribe((resultados)=>{
+    this.db.collection('precios').get().subscribe((resultados)=>{ /* Consultamos en la coleccion precios de la DB */
       resultados.docs.forEach((item)=>{
-        let precio = item.data() as Precio;
-        precio.id = item.id;
-        precio.ref = item.ref;
-        this.precios.push(precio);
+        let precio = item.data() as Precio; /* A la variable local precio le coloco toda la informacion que tengo en la BD sobre los precios */
+        precio.id = item.id; /* Añado a la variable local precio el id que le ha dado la BD */
+        precio.ref = item.ref; /* Añado a la variable local precio la ref que le ha dado la BD */
+        this.precios.push(precio); /* Almaceno la variable local al array ya creado */
       })
     })
   }
@@ -41,5 +42,12 @@ export class InscripcionComponent implements OnInit {
 
   guardar(){ /* Funcion que sube la informacion a la BD */
     console.log(this.inscripcion);
+  }
+
+  seleccionarPrecio(id: string) /* Funcion que permite cargar el precio a la inscripcion */
+  {
+    this.precioSeleccionado = this.precios.find(x => x.id == id)
+    this.inscripcion.precios = this.precioSeleccionado.ref
+    console.log(this.precioSeleccionado)
   }
 }
