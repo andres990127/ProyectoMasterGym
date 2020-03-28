@@ -14,13 +14,26 @@ export class SeleccionarClienteComponent implements OnInit {
   ngOnInit() {
     this.db.collection<any>('clientes').get().subscribe((resultados)=>{ /* Consulto la coleccion 'clientes' de la BD */
       this.clientes.length = 0; /* Borro todo lo anteriormente leido para no sobreescribir */
-      resultados.docs.forEach((item)=>{ /* Asigno informacion leida a la variable clientes */
-        let cliente: any = item.data();
-        cliente.id = item.id;
-        cliente.ref = item.ref;
-        this.clientes.push(cliente);
+      resultados.docs.forEach((item)=>{ 
+        let cliente: any = item.data(); /* Asigno informacion leida a la variable cliente */
+        cliente.id = item.id; /* Almaceno el id que le ha asignado la base de datos */
+        cliente.ref = item.ref; /* Almaceno el ref que le ha asignado la base de datos */
+        cliente.visible = true /*false*/ ; /* Por default tendrá el valor de false para no va a ser visible, LO DEJO EN FALSE PORQUE QUIERO VER LA LISTA DESDE EL PRINCIPIO */
+        this.clientes.push(cliente); /* Guardo todos los valores anteriores en un array anteriormente creado de el modelo "Clientes" */
       })
       console.log(this.clientes) /* Reporte */
+    })
+  }
+
+  buscarClientes(nombre:string) /* Funcion que recibe la informacion en tiempo real de lo que se escribe en el input */
+  {
+    this.clientes.forEach((cliente)=>{
+      if(cliente.nombre.toLowerCase().includes(nombre.toLowerCase())){ /* Si el nombre del cliente incluye el nombre del input obtenido por el parametro se vuelve visible */
+        cliente.visible = true;
+      }
+      else{
+        cliente.visible = false; /* Los nombres que no cumplan con esta condicion son ocultados */
+      }
     })
   }
 

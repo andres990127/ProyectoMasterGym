@@ -10,6 +10,7 @@ export class Cliente{
     telefono: number;
     cedula: string;
     ref: DocumentReference;
+    visible: boolean; /* Variable que decidira si el usuario es visible o no en la interface */
 
     constructor(){
         
