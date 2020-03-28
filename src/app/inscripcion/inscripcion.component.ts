@@ -8,26 +8,26 @@ import { Cliente } from '../models/cliente';
   styleUrls: ['./inscripcion.component.scss']
 })
 export class InscripcionComponent implements OnInit {
-  inscripcion: Inscripcion = new Inscripcion(); /* Creo una nueva inscripcion que guardara la informacion de inscripcion */
-  clienteSeleccionado: Cliente = new Cliente(); /* Creo una variable que contendrá al usuario seleccionado para la inscripcion */
+  inscripcion: Inscripcion = new Inscripcion();
+  clienteSeleccionado: Cliente = new Cliente();
   constructor() { }
 
   ngOnInit() {
   }
 
-  asignarCliente(cliente: Cliente) /* Funcion para asignar el cliente y la inscripcion */
+  asignarCliente(cliente: Cliente)
   {
-    this.inscripcion.cliente = cliente.ref /* Asigno a la variable 'cliente' de inscripcion la informacion recuperada */
-    this.clienteSeleccionado = cliente; /* Asigno a la variable local clienteSeleccionado la informacion del cliente recuperada */
+    this.inscripcion.cliente = cliente.ref
+    this.clienteSeleccionado = cliente;
   }
 
-  eliminarCliente() /* Funcion para eliminar el cliente y la inscripcion actual */
+  eliminarCliente()
   {
     this.clienteSeleccionado = new Cliente();
     this.inscripcion.cliente = undefined;
   }
 
-  guardar(){ /* Funcion para subir a la BD la inscripcion y el cliente de este */
+  guardar(){
     console.log(this.inscripcion);
   }
 }

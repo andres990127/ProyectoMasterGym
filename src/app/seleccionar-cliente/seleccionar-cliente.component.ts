@@ -11,8 +11,8 @@ import { Cliente } from '../models/cliente';
 export class SeleccionarClienteComponent implements OnInit {
   clientes: Cliente[] = new Array<Cliente>(); /* Creo un array vacio de clientes para almacenar la informacion que leeré de la BD */
   @Input('nombre') nombre : string; /* Variable para guardar el nombre del cliente seleccionado --- @Input sirve para comunicarse entre componentes, algo asi como una VARIABLE GLOBAL -- Ej: <app-seleccionar-cliente nombre="juanita"></app-seleccionar-cliente>*/
-  @Output('SeleccionoCliente') seleccionoCliente = new EventEmitter(); /* OJO, SELECCIONAR AL IMPORTAR 'ANGULAR CORE' -- Variable para almacenar la referencia del cliente seleccionado hacia otros componentes */
-  @Output('canceloCliente') canceloCliente = new EventEmitter(); /* OJO, SELECCIONAR AL IMPORTAR 'ANGULAR CORE' -- Variable para almacenar cuando se cancela la inscripcion del cliente */
+  @Output('SeleccionoCliente') SeleccionoCliente = new EventEmitter(); /* OJO, SELECCIONAR AL IMPORTAR 'ANGULAR CORE' -- Variable para almacenar la referencia del cliente seleccionado hacia otros componentes */
+  @Output('canceloCliente') canceloCliente = new EventEmitter();
   constructor(private db: AngularFirestore) { } /* Importo el servicio de consulta de la BD */
 
   ngOnInit() {
@@ -48,7 +48,9 @@ export class SeleccionarClienteComponent implements OnInit {
       cliente.visible = false;
     })
 
-    this.seleccionoCliente.emit(cliente) /* Variable creada para que otro componente se suscriba */
+    this.SeleccionoCliente.emit(cliente)
+
+
   }
 
   cancelarClientes(){ /* Funcion que ejecuta el boton CANCELAR */
