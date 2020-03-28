@@ -1,12 +1,24 @@
 <div class="clientes"> <!--  FORMULARIO DE INSCRIPCION -->
-    <div class="form-group">
+    <div class="form-group" *ngIf="!nombre">
         <label  for=""><h4>Clientes</h4></label>
         <input class="form-control" type="text" (input)="buscarClientes($event.target.value)" placeholder="Busque un cliente">
     </div>                                                              <!--  ↑↑↑ Toda la informacion dentro del input se manda como parametro a la funcion "buscarClientes" -->
 
-    <div class="list-group">
+    <div class="form-goup" *ngIf="nombre">
+        <label  for=""><h4>Clientes</h4></label>
+        <div class="row">
+            <div class="col-sm-10">
+                <input [(ngModel)]="nombre" disabled type="text" class="form-control">
+            </div>
+            <div class="col-sm-2">
+                <button  (click)="cancelarClientes()" class="btn btn-danger">Cancelar</button>
+            </div>
+        </div>  
+    </div>
+
+    <div class="list-group mt-4">
         <div  *ngFor="let cliente of clientes">
-            <a *ngIf="cliente.visible" class="list-group-item list-group-item-action">{{cliente.nombre}} {{cliente.apellido}}</a>
+            <a *ngIf="cliente.visible" (click)="seleccionarClientes(cliente)" class="list-group-item list-group-item-action">{{cliente.nombre}} {{cliente.apellido}}</a>
         </div>
       </div>
 </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Cliente } from '../models/cliente';
 
@@ -9,6 +9,7 @@ import { Cliente } from '../models/cliente';
 })
 export class SeleccionarClienteComponent implements OnInit {
   clientes: Cliente[] = new Array<Cliente>(); /* Creo un array vacio de clientes para almacenar la informacion que leeré de la BD */
+  @Input('nombre') nombre : string; /* Variable para guardar el nombre del cliente seleccionado --- @Input sirve para comunicarse entre componentes, algo asi como una VARIABLE GLOBAL -- Ej: <app-seleccionar-cliente nombre="juanita"></app-seleccionar-cliente>*/
   constructor(private db: AngularFirestore) { } /* Importo el servicio de consulta de la BD */
 
   ngOnInit() {
@@ -34,6 +35,22 @@ export class SeleccionarClienteComponent implements OnInit {
       else{
         cliente.visible = false; /* Los nombres que no cumplan con esta condicion son ocultados */
       }
+    })
+  }
+
+  seleccionarClientes(cliente:Cliente) /* Funcion que se ejecuta al darle click a un cliente */
+  {
+    this.nombre = cliente.nombre + ' ' + cliente.apellido /* Carga la variable global con el nombre y apellido del cliente */
+    this.clientes.forEach((cliente)=>{ //Codigo para borrar los clientes de la lista una vez se ha escogido uno
+      cliente.visible = false;
+    })
+    console.log(cliente);
+  }
+
+  cancelarClientes(){ /* Funcion que ejecuta el boton CANCELAR */
+    this.nombre = undefined; /* Borro el contenido del input */
+    this.clientes.forEach((cliente)=>{ // Codigo para rellenar la lista una vez se cancele el proceso
+      cliente.visible = true;
     })
   }
 
