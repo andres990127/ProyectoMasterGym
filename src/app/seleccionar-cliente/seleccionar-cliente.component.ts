@@ -12,7 +12,7 @@ export class SeleccionarClienteComponent implements OnInit {
   clientes: Cliente[] = new Array<Cliente>(); /* Creo un array vacio de clientes para almacenar la informacion que leeré de la BD */
   @Input('nombre') nombre : string; /* Variable para guardar el nombre del cliente seleccionado --- @Input sirve para comunicarse entre componentes, algo asi como una VARIABLE GLOBAL -- Ej: <app-seleccionar-cliente nombre="juanita"></app-seleccionar-cliente>*/
   @Output('SeleccionoCliente') SeleccionoCliente = new EventEmitter(); /* OJO, SELECCIONAR AL IMPORTAR 'ANGULAR CORE' -- Variable para almacenar la referencia del cliente seleccionado hacia otros componentes */
-  @Output('canceloCliente') canceloCliente = new EventEmitter();
+  @Output('canceloCliente') canceloCliente = new EventEmitter(); /* OJO, SELECCIONAR AL IMPORTAR 'ANGULAR CORE' -- Variable para almacenar la informacion cuando se cancele la inscripcion de un cliente */
   constructor(private db: AngularFirestore) { } /* Importo el servicio de consulta de la BD */
 
   ngOnInit() {
@@ -22,7 +22,7 @@ export class SeleccionarClienteComponent implements OnInit {
         let cliente: any = item.data(); /* Asigno informacion leida a la variable cliente */
         cliente.id = item.id; /* Almaceno el id que le ha asignado la base de datos */
         cliente.ref = item.ref; /* Almaceno el ref que le ha asignado la base de datos */
-        cliente.visible = true /*false*/ ; /* Por default tendrá el valor de false para no va a ser visible, LO DEJO EN FALSE PORQUE QUIERO VER LA LISTA DESDE EL PRINCIPIO */
+        cliente.visible = false ; /* Por default tendrá el valor de false para no va a ser visible, LO DEJO EN FALSE PORQUE QUIERO VER LA LISTA DESDE EL PRINCIPIO */
         this.clientes.push(cliente); /* Guardo todos los valores anteriores en un array anteriormente creado de el modelo "Clientes" */
       })
       console.log(this.clientes) /* Reporte */
@@ -48,16 +48,11 @@ export class SeleccionarClienteComponent implements OnInit {
       cliente.visible = false;
     })
 
-    this.SeleccionoCliente.emit(cliente)
-
-
+    this.SeleccionoCliente.emit(cliente) /* Variable creada para que otro componente se suscriba */
   }
 
   cancelarClientes(){ /* Funcion que ejecuta el boton CANCELAR */
     this.nombre = undefined; /* Borro el contenido del input */
-    this.clientes.forEach((cliente)=>{ // Codigo para rellenar la lista una vez se cancele el proceso
-      cliente.visible = true;
-    })
     this.canceloCliente.emit();
   }
 

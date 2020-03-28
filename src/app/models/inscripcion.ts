@@ -10,6 +10,12 @@ export class Inscripcion{
     total: number;
 
     constructor(){
-        
+        this.fecha = this.fecha
+        this.fechaFinal = this.fechaFinal
+        this.precios = this.precios
+        this.cliente = this.cliente
+        this.subTotal = this.subTotal
+        this.iva = this.iva
+        this.total = this.total
     }
 }

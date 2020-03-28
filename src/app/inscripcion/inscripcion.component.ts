@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Inscripcion } from '../models/inscripcion';
 import { Cliente } from '../models/cliente';
+import { AngularFirestore } from '@angular/fire/firestore';
+import { Precio } from '../models/precio';
 
 @Component({
   selector: 'app-inscripcion',
@@ -8,26 +10,36 @@ import { Cliente } from '../models/cliente';
   styleUrls: ['./inscripcion.component.scss']
 })
 export class InscripcionComponent implements OnInit {
-  inscripcion: Inscripcion = new Inscripcion();
-  clienteSeleccionado: Cliente = new Cliente();
-  constructor() { }
+  inscripcion: Inscripcion = new Inscripcion(); /* Variable que guardara los datos de la inscripcion */
+  clienteSeleccionado: Cliente = new Cliente(); /* Variable que guardara el cliente relacionado a la inscripcion */
+  precios: Precio[] = new Array<Precio>();
+  constructor(private db: AngularFirestore) { }
 
   ngOnInit() {
+    this.db.collection('precios').get().subscribe((resultados)=>{
+      resultados.docs.forEach((item)=>{
+        let precio = item.data() as Precio;
+        precio.id = item.id;
+        precio.ref = item.ref;
+        this.precios.push(precio);
+      })
+    })
   }
 
-  asignarCliente(cliente: Cliente)
+  asignarCliente(cliente: Cliente) /* Funcion que asigna el cliente seleccionado a la inscripcion */
   {
-    this.inscripcion.cliente = cliente.ref
-    this.clienteSeleccionado = cliente;
-  }
+    this.inscripcion.cliente = cliente.ref  /* Guarda la informacion del cliente en la variable cliente de inscripcion */
+    this.clienteSeleccionado = cliente;  /* Guarda el cliente seleccionado */
+  } 
 
-  eliminarCliente()
+  eliminarCliente() /* Funcion que elimina al cliente al momento de cancelar el proceso */
   {
-    this.clienteSeleccionado = new Cliente();
+    /* Limpiamos variables  */
+    this.clienteSeleccionado = new Cliente(); 
     this.inscripcion.cliente = undefined;
   }
 
-  guardar(){
+  guardar(){ /* Funcion que sube la informacion a la BD */
     console.log(this.inscripcion);
   }
 }

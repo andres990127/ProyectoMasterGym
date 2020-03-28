@@ -2,12 +2,26 @@
     <div class="row">
 
         <div class="col-sm-6">
-            <app-seleccionar-cliente 
-            nombre="clienteSeleccionado.nombre" 
+            <!-- Referencio el componente ya creado que contiene los formularios de inscripcion -->
+            <app-seleccionar-cliente  
+            [nombre]="clienteSeleccionado.nombre" 
             (seleccionoCliente)="asignarCliente($event)"
             (canceloCliente)="eliminarCliente()">
-        </app-seleccionar-cliente> <!-- Referencio el componente ya creado que contiene los formularios de inscripcion -->
+        </app-seleccionar-cliente> <!-- Variable nombre que se comunicara con este componente -- variable seleccionoCliente y canceloCliente que se comunicaran con los otros clientes -->
         
+        <div>
+            <label for="">Precio</label>
+            <select class="form-control" name="" id="">
+                <option *ngFor="let precio of precios" value=""Diaria>{{precio.nombre}}</option>
+            </select>
+        </div>
+
+        <br>
+        <br>
+        <br>
+        <br>
+        <br>
+
         <div class="mt-3">
             <button class="btn btn-primary" (click)="guardar()">Guardar</button>
         </div>
