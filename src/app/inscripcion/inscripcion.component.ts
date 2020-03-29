@@ -4,6 +4,7 @@ import { Cliente } from '../models/cliente';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Precio } from '../models/precio';
 
+
 @Component({
   selector: 'app-inscripcion',
   templateUrl: './inscripcion.component.html',
@@ -48,6 +49,42 @@ export class InscripcionComponent implements OnInit {
   {
     this.precioSeleccionado = this.precios.find(x => x.id == id)
     this.inscripcion.precios = this.precioSeleccionado.ref
-    console.log(this.precioSeleccionado)
+    
+    this.inscripcion.fecha = new Date();
+
+    if(this.precioSeleccionado.tipoDuracion == 1){
+      let dias: number = this.precioSeleccionado.duracion;
+      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      this.inscripcion.fechaFinal = fechaFinal;
+    }
+
+    if(this.precioSeleccionado.tipoDuracion == 2){
+      let dias: number = this.precioSeleccionado.duracion * 7;
+      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      this.inscripcion.fechaFinal = fechaFinal;
+    }
+
+    if(this.precioSeleccionado.tipoDuracion == 3){
+      let dias: number = this.precioSeleccionado.duracion * 15;
+      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      this.inscripcion.fechaFinal = fechaFinal;
+    }
+
+    if(this.precioSeleccionado.tipoDuracion == 4){
+      let año: number = this.inscripcion.fecha.getFullYear();
+      let meses = this.precioSeleccionado.duracion + this.inscripcion.fecha.getMonth();
+      let dia: number = this.inscripcion.fecha.getDate();
+      let fechaFinal = new Date(año,meses,dia)
+      this.inscripcion.fechaFinal = fechaFinal;
+    }
+
+    if(this.precioSeleccionado.tipoDuracion == 5){
+      let año: number = this.inscripcion.fecha.getFullYear() + this.precioSeleccionado.duracion;
+      let meses = this.inscripcion.fecha.getMonth();
+      let dia: number = this.inscripcion.fecha.getDate();
+      let fechaFinal = new Date(año,meses,dia)
+      this.inscripcion.fechaFinal = fechaFinal;
+    }
+
   }
 }
