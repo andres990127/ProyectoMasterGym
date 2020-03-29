@@ -4,6 +4,7 @@ import { ListadoClientesComponent } from './listado-clientes/listado-clientes.co
 import { AgregarClienteComponent } from './agregar-cliente/agregar-cliente.component';
 import { PreciosComponent } from './precios/precios.component';
 import { InscripcionComponent } from './inscripcion/inscripcion.component';
+import { ListadoInscripcionesComponent } from './listado-inscripciones/listado-inscripciones.component';
 
 
 const routes: Routes = [
@@ -24,7 +25,10 @@ const routes: Routes = [
   }, /* Significa que recibe algo ↑↑↑ */
   {
     path: 'precios', component: PreciosComponent
-  } 
+  },
+  {
+    path: 'listado-inscripciones', component: ListadoInscripcionesComponent
+  }
 ];
 
 @NgModule({
