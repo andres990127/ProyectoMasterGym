@@ -3,6 +3,7 @@ import { Inscripcion } from '../models/inscripcion';
 import { Cliente } from '../models/cliente';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Precio } from '../models/precio';
+import { MensajesService } from '../services/mensajes.service';
 
 
 @Component({
@@ -13,9 +14,11 @@ import { Precio } from '../models/precio';
 export class InscripcionComponent implements OnInit {
   inscripcion: Inscripcion = new Inscripcion(); /* Variable que guardara los datos de la inscripcion */
   clienteSeleccionado: Cliente = new Cliente(); /* Variable que guardara el cliente relacionado a la inscripcion */
-  precios: Precio[] = new Array<Precio>(); /* Array que almacenará todos los precios disponibles en la BD */
   precioSeleccionado: Precio = new Precio(); /* Variable que contendra el precio de la el tipo de mensualidad seleccionada */
-  constructor(private db: AngularFirestore) { } /* Inyecto servicio de lectura de datos de la base de datos */
+  idPrecio: string = 'null'; /* Variable creada para limiar la lista */
+  precios: Precio[] = new Array<Precio>(); /* Array que almacenará todos los precios disponibles en la BD */
+
+  constructor(private db: AngularFirestore, private msj: MensajesService) { } /* Inyecto servicio de lectura de datos de la base de datos y el servicio de alertas creado */
 
   ngOnInit() {
     this.db.collection('precios').get().subscribe((resultados)=>{ /* Consultamos en la coleccion precios de la DB */
@@ -44,9 +47,24 @@ export class InscripcionComponent implements OnInit {
   guardar(){ /* Funcion que sube la informacion a la BD */
     if(this.inscripcion.validar().esValido)
     {
-      console.log('Guardando')
+      let inscripcionAgregar = {
+        fecha: this.inscripcion.fecha,
+        fechaFinal: this.inscripcion.fechaFinal,
+        cliente: this.inscripcion.cliente, 
+        precios: this.inscripcion.precios, 
+        subTotal: this.inscripcion.subTotal,
+        iva: this.inscripcion.iva,
+        total: this.inscripcion.total
+      }
+      this.db.collection('inscripciones').add(inscripcionAgregar).then((resultado)=>{
+        this.inscripcion = new Inscripcion(); /* Limpio el formulario */
+        this.clienteSeleccionado = new Cliente(); /* Limpio el formulario */
+        this.precioSeleccionado = new Precio(); /* Limpio el formulario */
+        this.idPrecio = 'null';
+        this.msj.mensajeCorrecto('Guardado', 'Se ha guardado correctamente')
+      })
     }else{
-      console.log(this.inscripcion.validar().mensaje)
+      this.msj.mensajeAdvertencia('Advertencia',this.inscripcion.validar().mensaje)
     }
   }
 
@@ -54,7 +72,8 @@ export class InscripcionComponent implements OnInit {
   {
     if(id!="null")
     {
-      this.precioSeleccionado = this.precios.find(x => x.id == id)
+
+    this.precioSeleccionado = this.precios.find(x => x.id == id)
     this.inscripcion.precios = this.precioSeleccionado.ref
 
     this.inscripcion.subTotal = this.precioSeleccionado.costo;
@@ -66,19 +85,19 @@ export class InscripcionComponent implements OnInit {
 
     if(this.precioSeleccionado.tipoDuracion == 1){
       let dias: number = this.precioSeleccionado.duracion;
-      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      let fechaFinal = new Date(this.inscripcion.fecha.getFullYear(),this.inscripcion.fecha.getMonth(),this.inscripcion.fecha.getDate() + dias)
       this.inscripcion.fechaFinal = fechaFinal;
     }
 
     if(this.precioSeleccionado.tipoDuracion == 2){
       let dias: number = this.precioSeleccionado.duracion * 7;
-      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      let fechaFinal = new Date(this.inscripcion.fecha.getFullYear(),this.inscripcion.fecha.getMonth(),this.inscripcion.fecha.getDate() + dias)
       this.inscripcion.fechaFinal = fechaFinal;
     }
 
     if(this.precioSeleccionado.tipoDuracion == 3){
       let dias: number = this.precioSeleccionado.duracion * 15;
-      let fechaFinal = new Date(this.inscripcion.fecha.getUTCFullYear(),this.inscripcion.fecha.getUTCMonth(),this.inscripcion.fecha.getDate() + dias)
+      let fechaFinal = new Date(this.inscripcion.fecha.getFullYear(),this.inscripcion.fecha.getMonth(),this.inscripcion.fecha.getDate() + dias)
       this.inscripcion.fechaFinal = fechaFinal;
     }
 
@@ -106,6 +125,7 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.subTotal = 0;
       this.inscripcion.iva = 0;
       this.inscripcion.total = 0;
+
     }
     
   }

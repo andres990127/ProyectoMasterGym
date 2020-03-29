@@ -11,14 +11,14 @@
                 <input [(ngModel)]="nombre" disabled type="text" class="form-control">
             </div>
             <div class="col-sm-3">
-                <button  (click)="cancelarClientes()" class="btn btn-danger">Cancelar</button>
+                <button  (click)="cancelarCliente()" class="btn btn-danger">Cancelar</button>
             </div>
         </div>  
     </div>
 
     <div class="list-group mt-4">
         <div  *ngFor="let cliente of clientes">
-            <a *ngIf="cliente.visible" (click)="seleccionarClientes(cliente)" class="list-group-item list-group-item-action">{{cliente.nombre}} {{cliente.apellido}}</a>
+            <a *ngIf="cliente.visible" (click)="seleccionarCliente(cliente)" class="list-group-item list-group-item-action">{{cliente.nombre}} {{cliente.apellido}}</a>
         </div>
       </div>
 </div>

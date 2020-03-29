@@ -9,34 +9,34 @@
             (canceloCliente)="eliminarCliente()">
         </app-seleccionar-cliente> <!-- Variable nombre que se comunicara con este componente -- variable seleccionoCliente y canceloCliente que se comunicaran con los otros clientes -->
         
-        <div>
+        <div class="from-control">
             <label for="">Precio</label>
-            <select (change)="seleccionarPrecio($event.target.value)"  class="form-control" name="" id="">
+            <select [(ngModel)]="idPrecio" (change)="seleccionarPrecio($event.target.value)"  class="form-control" name="" id="">
                 <option [value]="null">Seleccione un precio</option> <!-- Valor que muestra al lista por default -->
-                <option *ngFor="let precio of precios" [value]="precio.id" Diaria>{{precio.nombre}}</option> <!-- Lectura de precios en la BD -->
+                <option *ngFor="let precio of precios" [value]="precio.id">{{precio.nombre}}</option> <!-- Lectura de precios en la BD -->
             </select>
         </div>
 
-        <div class="mt-3">
+        <div class="from-control mt-3">
             <label for="">Fecha Inicio</label>
             <input class="form-control" [value]="inscripcion.fecha | date" type="text" disabled>
         </div>
-        <div class="mt-3">
+        <div class="from-control mt-3">
             <label for="">Fecha Final</label>
-            <input class="form-control" [value]="inscripcion.fechaFinal | date"type="text" disabled>
+            <input class="form-control" [value]="inscripcion.fechaFinal | date" type="text" disabled>
         </div>
 
-        <div class="mt-3">
+        <div class="from-control mt-3">
             <label for="">Sub Total</label>
             <input class="form-control" [value]="inscripcion.subTotal" type="number" disabled>
         </div>
 
-        <div class="mt-3">
+        <div class="from-control mt-3">
             <label for="">Iva</label>
             <input class="form-control" [value]="inscripcion.iva" type="number" disabled>
         </div>
 
-        <div class="mt-3">
+        <div class="from-control mt-3">
             <label for="">Total</label>
             <input class="form-control" [value]="inscripcion.total" type="number" disabled>
         </div>
@@ -48,9 +48,8 @@
         </div>
         
     </div>
-
         <div class="col-sm-6">
-            <div *ngIf="prueba" class="imgCliente">
+            <div *ngIf="clienteSeleccionado.imgUrl" class="imgCliente">
                 <img [src]="clienteSeleccionado.imgUrl" alt="">
             </div>
         </div>

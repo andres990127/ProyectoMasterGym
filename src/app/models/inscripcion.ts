@@ -25,11 +25,11 @@ export class Inscripcion{
             mensaje: ''
         }
 
-        if(this.cliente == null || this.fecha == undefined){
+ /*        if(this.cliente == null || this.cliente == undefined){
             respuesta.esValido = false;
             respuesta.mensaje = 'Por favor seleccione un cliente'
             return respuesta
-        }
+        } */
 
         if(this.precios == null || this.precios == undefined){
             respuesta.esValido = false;
