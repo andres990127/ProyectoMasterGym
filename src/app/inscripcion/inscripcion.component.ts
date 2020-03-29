@@ -42,14 +42,21 @@ export class InscripcionComponent implements OnInit {
   }
 
   guardar(){ /* Funcion que sube la informacion a la BD */
-    console.log(this.inscripcion);
+    if(this.inscripcion.validar().esValido)
+    {
+      console.log('Guardando')
+    }else{
+      console.log(this.inscripcion.validar().mensaje)
+    }
   }
 
   seleccionarPrecio(id: string) /* Funcion que permite cargar el precio a la inscripcion */
   {
-    this.precioSeleccionado = this.precios.find(x => x.id == id)
+    if(id!="null")
+    {
+      this.precioSeleccionado = this.precios.find(x => x.id == id)
     this.inscripcion.precios = this.precioSeleccionado.ref
-    
+
     this.inscripcion.subTotal = this.precioSeleccionado.costo;
     this.inscripcion.iva = this.inscripcion.subTotal * 0.16;
     this.inscripcion.total = this.inscripcion.subTotal + this.inscripcion.iva;
@@ -91,5 +98,15 @@ export class InscripcionComponent implements OnInit {
       this.inscripcion.fechaFinal = fechaFinal;
     }
 
+    } else {
+      this.precioSeleccionado = new Precio();
+      this.inscripcion.fecha = null;
+      this.inscripcion.fechaFinal = null;
+      this.inscripcion.precios = null;
+      this.inscripcion.subTotal = 0;
+      this.inscripcion.iva = 0;
+      this.inscripcion.total = 0;
+    }
+    
   }
 }
