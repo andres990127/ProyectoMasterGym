@@ -12,15 +12,19 @@ export class ListadoInscripcionesComponent implements OnInit {
   constructor(private db: AngularFirestore) { } /* Inyecto servicio de consulta de BD */
 
   ngOnInit() {
+    this.inscripciones.length = 0; /* Limpio las consultas anteriores */
     this.db.collection('inscripciones').get().subscribe((resultado)=>{
       resultado.forEach((inscripcion)=>{
 
         let inscripcionObtenida = inscripcion.data();
         inscripcionObtenida.id = inscripcion.id;
-        //console.log(inscripcionObtenida)
 
         this.db.doc(inscripcion.data().cliente.path).get().subscribe((cliente)=>{
-          console.log(cliente.data())
+          inscripcionObtenida.clienteObtenido = cliente.data();
+          inscripcionObtenida.fecha = new Date(inscripcionObtenida.fecha.seconds * 1000)
+          inscripcionObtenida.fechaFinal = new Date(inscripcionObtenida.fechaFinal.seconds * 1000)
+          this.inscripciones.push(inscripcionObtenida);
+
         })
       })
     })
