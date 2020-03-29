@@ -26,10 +26,21 @@
             <input class="form-control" [value]="inscripcion.fechaFinal | date"type="text" disabled>
         </div>
 
-        <br>
-        <br>
-        <br>
-        <br>
+        <div class="mt-3">
+            <label for="">Sub Total</label>
+            <input class="form-control" [value]="inscripcion.subTotal" type="number" disabled>
+        </div>
+
+        <div class="mt-3">
+            <label for="">Iva</label>
+            <input class="form-control" [value]="inscripcion.iva" type="number" disabled>
+        </div>
+
+        <div class="mt-3">
+            <label for="">Total</label>
+            <input class="form-control" [value]="inscripcion.total" type="number" disabled>
+        </div>
+
         <br>
 
         <div class="mt-3">
@@ -39,8 +50,9 @@
     </div>
 
         <div class="col-sm-6">
-            segundos
+            <div *ngIf="clienteSeleccionado.imgUrl" class="imgCliente">
+                <img [src]="clienteSeleccionado.imgUrl" alt="">
+            </div>
         </div>
-
     </div>
 </div>
