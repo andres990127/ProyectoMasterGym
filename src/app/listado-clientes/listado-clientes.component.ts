@@ -16,7 +16,7 @@ export class ListadoClientesComponent implements OnInit {
     //  this.clientes = resultado;
     //})
 
-    this.clientes.length = 0; /* Nos aseguramos de queel array clientes este vasio */
+    this.clientes.length = 0; /* Nos aseguramos de que el array clientes este vacio */
     this.db.collection('clientes').get().subscribe((resultado) => {
       console.log(resultado.docs) /* TEST */
 
